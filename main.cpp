@@ -5,7 +5,10 @@
 using namespace std;
 using namespace miosix;
 
+extern "C" unsigned int duplicate(unsigned int);
+
 int main()
 {
-    //iprintf("Hello world, write your application here\n");
+    int result=duplicate(42);
+    iprintf("%d\n",result);
 }

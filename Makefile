@@ -24,7 +24,7 @@ main.cpp
 ##
 ## List here additional static libraries with relative path
 ##
-LIBS :=
+LIBS := librust.a
 
 ##
 ## List here additional include directories (in the form -Iinclude_dir)
