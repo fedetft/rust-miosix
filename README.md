@@ -6,8 +6,7 @@ Getting rust to work in Miosix
 2) Install rustup
 3) $ rustup target add thumbv7m-none-eabi
 4) $ git submodule init && git submodule update
-5) $ rustc -O -C panic=abort --target thumbv7m-none-eabi rust.rs
-6) $ make
+5) $ make
 
 
 Is it good?

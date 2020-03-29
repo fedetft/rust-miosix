@@ -87,7 +87,7 @@ clean-recursive:
 	  clean || exit 1;)
 
 clean-topdir:
-	-rm -f $(OBJ) main.elf main.hex main.bin main.map $(OBJ:.o=.d)
+	-rm -f $(OBJ) main.elf main.hex main.bin main.map $(OBJ:.o=.d) librust.a
 
 main: main.elf
 	$(ECHO) "[CP  ] main.hex"
@@ -96,7 +96,7 @@ main: main.elf
 	$(Q)$(CP) -O binary main.elf main.bin
 	$(Q)$(SZ) main.elf
 
-main.elf: $(OBJ) all-recursive
+main.elf: $(OBJ) all-recursive librust.a
 	$(ECHO) "[LD  ] main.elf"
 	$(Q)$(CXX) $(LFLAGS) -o main.elf $(OBJ) $(KPATH)/$(BOOT_FILE) $(LINK_LIBS)
 
@@ -111,6 +111,11 @@ main.elf: $(OBJ) all-recursive
 %.o : %.cpp
 	$(ECHO) "[CXX ] $<"
 	$(Q)$(CXX) $(DFLAGS) $(CXXFLAGS) $< -o $@
+
+# Still a hack, need to see how to integrate better rust and makefiles
+librust.a: rust.rs
+	rustc -O -C panic=abort --target thumbv7m-none-eabi rust.rs
+
 
 #pull in dependecy info for existing .o files
 -include $(OBJ:.o=.d)
